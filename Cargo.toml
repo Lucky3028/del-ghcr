@@ -2,7 +2,7 @@
 name = "ls-ghcr"
 version = "0.1.0"
 edition = "2018"
-description = "You can delete all untagged images of GitHub Container Registry by using this command."
+description = "You can delete all untagged images of GitHub Container Registry (ghcr.io) by using this command."
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
