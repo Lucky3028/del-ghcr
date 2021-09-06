@@ -1,5 +1,5 @@
 [package]
-name = "delete-ghcr"
+name = "del-ghcr"
 version = "0.1.0"
 edition = "2018"
 description = "You can delete all untagged images of GitHub Container Registry (ghcr.io) by using this command."

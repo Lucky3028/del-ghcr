@@ -123,7 +123,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "delete-ghcr"
+name = "del-ghcr"
 version = "0.1.0"
 dependencies = [
  "itertools",
