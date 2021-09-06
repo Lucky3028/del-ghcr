@@ -26,12 +26,12 @@ pub fn executor(context: &Context) {
         let mut table = table!(["id", "name", "created_at", "updated_at"]);
         table.set_format(*format::consts::FORMAT_NO_BORDER_LINE_SEPARATOR);
         images.iter().for_each(|image| {
-            table.add_row(row!(
+            table.add_row(row![
                 image.id,
                 image.name,
                 image.created_at,
                 image.updated_at
-            ));
+            ]);
         });
         table.printstd();
     } else {
