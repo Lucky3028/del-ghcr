@@ -19,7 +19,7 @@ fn executor(context: &Context) {
             return;
         }
     };
-    match client.list_images() {
+    match client.fetch_images() {
         Ok(images) if images.is_empty() => println!("There are no untagged images: {}", client.url),
         Ok(images) => {
             let mut table = table!(["id", "name", "created_at", "updated_at"]);
