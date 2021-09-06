@@ -19,7 +19,7 @@ impl GhcrClient {
         Self { token, url }
     }
 
-    pub fn delete_image(&self, image_id: &str) -> Result<ureq::Response, ApiError> {
+    pub fn delete_image(&self, image_id: usize) -> Result<ureq::Response, ApiError> {
         let url = format!("{}/{}", self.url, image_id);
         ureq::delete(&url)
             .set("Authorization", &self.token)
