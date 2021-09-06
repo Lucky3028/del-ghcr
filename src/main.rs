@@ -1,4 +1,4 @@
-use delete_ghcr::commands;
+use del_ghcr::commands;
 use itertools::Itertools;
 use seahorse::{App, Command};
 use std::env;

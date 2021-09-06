@@ -5,7 +5,7 @@ pub fn command() -> Command {
     Command::new("delete")
         .description("Delete all untagged images.")
         .alias("del")
-        .usage("delete-ghcr delete --token [token] --container [container name]")
+        .usage("del-ghcr delete --token [token] --container [container name]")
         .action(executor)
 }
 

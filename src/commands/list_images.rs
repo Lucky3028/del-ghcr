@@ -7,7 +7,7 @@ pub fn command() -> Command {
         .description("Show the list of untagged images.")
         .alias("ls")
         .flag(Flag::new("token", FlagType::String).alias("t"))
-        .usage("delete-ghcr list --token [token] --container [container name]")
+        .usage("del-ghcr list --token [token] --container [container name]")
         .action(executor)
 }
 
