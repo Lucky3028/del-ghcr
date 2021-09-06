@@ -25,7 +25,7 @@ pub fn executor(context: &Context) {
     if args.is_dry_run {
         println!("These images below will be deleted by executing without `--dry-run` option.");
         let mut table = Table::new();
-        table.set_titles(row![c => "id", "name", "created_at", "updated_at"]);
+        table.set_titles(row!["id", "name", "created_at", "updated_at"]);
         table.set_format(*format::consts::FORMAT_NO_BORDER_LINE_SEPARATOR);
         images.iter().for_each(|image| {
             table.add_row(row![
