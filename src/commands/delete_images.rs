@@ -1,5 +1,5 @@
 use crate::domains::{ContextParser, GhcrClient, TError};
-use prettytable::{cell, format, row, table};
+use prettytable::{cell, format, row, Table};
 use seahorse::Context;
 
 pub fn executor(context: &Context) {
@@ -23,7 +23,8 @@ pub fn executor(context: &Context) {
         }
     };
     if args.is_dry_run {
-        let mut table = table!(["id", "name", "created_at", "updated_at"]);
+        let mut table = Table::new();
+        table.set_titles(row![c => "id", "name", "created_at", "updated_at"]);
         table.set_format(*format::consts::FORMAT_NO_BORDER_LINE_SEPARATOR);
         images.iter().for_each(|image| {
             table.add_row(row![
