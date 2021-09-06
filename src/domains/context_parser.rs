@@ -5,6 +5,7 @@ use std::env;
 pub struct ContextParser {
     pub token: String,
     pub container: String,
+    pub is_dry_run: bool,
 }
 
 impl ContextParser {
@@ -23,6 +24,10 @@ impl ContextParser {
             return Err(ParseError::Container);
         };
 
-        Ok(Self { token, container })
+        Ok(Self {
+            token,
+            container,
+            is_dry_run: context.bool_flag("dry-run"),
+        })
     }
 }
