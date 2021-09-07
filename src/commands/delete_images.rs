@@ -56,7 +56,7 @@ pub fn executor(context: &Context) {
             .map(|image| (image.id, client.delete_image(image.id)))
             .for_each(|(id, result)| {
                 let msg = match result {
-                    Ok(_) => "Succeeded",
+                    Ok(_) => "Succeeded".to_string(),
                     Err(err) => format!("Failed: {}", err.get_log_as_str()),
                 };
                 println!("{}: {}", id, msg);
