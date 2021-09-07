@@ -51,3 +51,5 @@ impl Default for GhcrClient {
         Self::new("default_token".into(), "default_image_name".into())
     }
 }
+
+// TODO: test
