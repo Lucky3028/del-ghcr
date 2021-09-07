@@ -7,10 +7,10 @@ pub enum ApiError {
 }
 
 impl TError for ApiError {
-    fn log(&self) {
+    fn get_log_as_str(&self) -> String {
         match self {
-            Self::Json(e) => eprintln!("Failed to parse to JSON: {}", e),
-            Self::Ureq(e) => eprintln!("Failed to communicate with external API: {}", e),
+            Self::Json(e) => format!("Failed to parse to JSON: {}", e),
+            Self::Ureq(e) => format!("Failed to communicate with external API: {}", e),
         }
     }
 }
