@@ -51,15 +51,15 @@ pub fn executor(context: &Context) {
             };
         }
         println!("Deleteing all untagged images...");
-        // images
-        //     .iter()
-        //     .map(|image| (image.id, client.delete_image(image.id)))
-        //     .for_each(|(id, result)| {
-        //         let msg = match result {
-        //             Ok(_) => "Succeeded",
-        //             Err(err) => format!("Failed: {}", err.get_log_as_str()),
-        //         };
-        //         println!("{}: {}", id, msg);
-        //     });
+        images
+            .iter()
+            .map(|image| (image.id, client.delete_image(image.id)))
+            .for_each(|(id, result)| {
+                let msg = match result {
+                    Ok(_) => "Succeeded",
+                    Err(err) => format!("Failed: {}", err.get_log_as_str()),
+                };
+                println!("{}: {}", id, msg);
+            });
     }
 }
