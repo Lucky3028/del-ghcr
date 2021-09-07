@@ -39,36 +39,16 @@ pub fn executor(context: &Context) {
         table.printstd();
     } else {
         // FIXME: コメントアウトを解除
-        // let results = images
+        println!("Deleteing all untagged images...");
+        // images
         //     .iter()
-        //     .map(|image| (image, client.delete_image(image.id)))
-        //     .collect_vec();
-        // let deleted = results
-        //     .iter()
-        //     .filter(|(_, res)| res.is_ok())
-        //     .map(|(image, _)| image.id)
-        //     .collect_vec();
-        // if deleted.is_empty() {
-        //     println!("There was no deleted image.");
-        // } else {
-        //     println!("The following ID images have been deleted.");
-        //     deleted.iter().for_each(|id| println!("{}", id));
-        // }
-        // let not_deleted = results
-        //     .into_iter()
-        //     .filter(|(_, res)| res.is_err())
-        //     .map(|(image, res)| (image.id, res.unwrap_err()))
-        //     .collect_vec();
-        // if not_deleted.is_empty() {
-        //     println!("There was no image that was not deleted.");
-        // } else {
-        //     println!("The following ID images have not been deleted.");
-        //     not_deleted
-        //         .iter()
-        //         .for_each(|(id, err)| {
-        //             print!("{}: ", id);
-        //             err.log();
-        //         });
-        // }
+        //     .map(|image| (image.id, client.delete_image(image.id)))
+        //     .for_each(|(id, result)| {
+        //         let msg = match result {
+        //             Ok(_) => "Succeeded",
+        //             Err(err) => format!("Failed: {}", err.get_log_as_str()),
+        //         };
+        //         println!("{}: {}", id, msg);
+        //     });
     }
 }
