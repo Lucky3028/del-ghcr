@@ -7,7 +7,7 @@ pub enum ParseError {
 }
 
 impl TError for ParseError {
-    fn log(&self) {
-        eprintln!("Arguments are missing: {:?}", self);
+    fn get_log_as_str(&self) -> String {
+        format!("Arguments are missing: {:?}", self)
     }
 }

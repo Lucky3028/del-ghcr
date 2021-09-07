@@ -19,7 +19,7 @@ impl GhcrClient {
         Self { token, url }
     }
 
-    pub fn delete_images(&self, image_id: &str) -> Result<ureq::Response, ApiError> {
+    pub fn delete_image(&self, image_id: usize) -> Result<ureq::Response, ApiError> {
         let url = format!("{}/{}", self.url, image_id);
         ureq::delete(&url)
             .set("Authorization", &self.token)
@@ -28,7 +28,8 @@ impl GhcrClient {
             .map_err(ApiError::from)
     }
 
-    pub fn list_images(&self) -> Result<Vec<ContainerImage>, ApiError> {
+    pub fn fetch_images(&self) -> Result<Vec<ContainerImage>, ApiError> {
+        // TODO: 残りがあるかどうかのやつ
         let result = ureq::get(&self.url)
             .set("Authorization", &self.token)
             .set("Accept", ACCEPT_VALUE)
