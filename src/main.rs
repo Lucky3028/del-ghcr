@@ -13,6 +13,7 @@ fn main() {
         .flag(Flag::new("token", FlagType::String).alias("t"))
         .flag(Flag::new("container", FlagType::String).alias("c"))
         .flag(Flag::new("dry-run", FlagType::Bool).alias("d"))
+        .flag(Flag::new("force", FlagType::Bool).alias("f"))
         .command(
             Command::new("version")
                 .alias("-v")

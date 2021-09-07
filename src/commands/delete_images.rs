@@ -1,6 +1,6 @@
 use crate::domains::{ContextParser, GhcrClient, TError};
-use itertools::Itertools;
 use prettytable::{cell, format, row, Table};
+use question::{Answer, Question};
 use seahorse::Context;
 
 pub fn executor(context: &Context) {
@@ -38,7 +38,18 @@ pub fn executor(context: &Context) {
         });
         table.printstd();
     } else {
-        // FIXME: コメントアウトを解除
+        if !args.is_forced {
+            let ans = Question::new("Do you want to delete all untagged images?")
+                .yes_no()
+                .tries(1)
+                .default(Answer::NO)
+                .show_defaults()
+                .ask();
+            if ans != Some(Answer::YES) {
+                println!("The operation was cancelled.");
+                return;
+            };
+        }
         println!("Deleteing all untagged images...");
         // images
         //     .iter()
