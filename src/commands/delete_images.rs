@@ -23,7 +23,7 @@ pub fn executor(context: &Context) {
             return;
         }
     };
-    if args.is_dry_run {
+    if args.is_dry_running {
         println!("These images below will be deleted by executing without `--dry-run` option.");
         let mut table = Table::new();
         table.set_titles(row!["id", "name", "created_at", "updated_at"]);
