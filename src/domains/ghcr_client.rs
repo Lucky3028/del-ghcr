@@ -29,7 +29,6 @@ impl GhcrClient {
     }
 
     pub fn fetch_images(&self) -> Result<Vec<ContainerImage>, ApiError> {
-        // TODO: 残りがあるかどうかのやつ
         let result = ureq::get(&self.url)
             .set("Authorization", &self.token)
             .set("Accept", ACCEPT_VALUE)
@@ -51,5 +50,3 @@ impl Default for GhcrClient {
         Self::new("default_token".into(), "default_image_name".into())
     }
 }
-
-// TODO: test
