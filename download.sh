@@ -11,11 +11,12 @@ else
   exit 1
 fi
 
+sudo apt-get -qq update && sudo apt-get install busybox -y -qq
+
 curl -s https://api.github.com/repos/Lucky3028/del-ghcr/releases \
   | grep "browser_download_url" \
   | cut -d : -f 2,3 \
   | tr -d \" \
   | grep -m 1 $OS \
-  | xargs wget -O del-ghcr.gz
-
-gzip -d del-ghcr.gz
+  | xargs wget -O - \
+  | busybox unzip -
