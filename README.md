@@ -15,6 +15,7 @@ You can delete all untagged images of GitHub Container Registry (ghcr.io) by usi
 ## Release
 
 You can download the executable file from
+
 * [here](https://github.com/Lucky3028/del-ghcr/releases) (GitHub Release)
 * [here](./download.sh) (bash script)
 
