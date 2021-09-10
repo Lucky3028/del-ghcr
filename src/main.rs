@@ -1,6 +1,6 @@
 use del_ghcr::commands;
 use itertools::Itertools;
-use seahorse::{App, Command, Flag, FlagType};
+use seahorse::{App, Flag, FlagType};
 use std::env;
 
 fn main() {
