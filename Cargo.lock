@@ -128,7 +128,6 @@ version = "0.1.1"
 dependencies = [
  "itertools",
  "prettytable-rs",
- "question",
  "seahorse",
  "serde",
  "serde_json",
@@ -290,12 +289,6 @@ checksum = "b9f5105d4fdaab20335ca9565e106a5d9b82b6219b5ba735731124ac6711d23d"
 dependencies = [
  "unicode-xid",
 ]
-
-[[package]]
-name = "question"
-version = "0.2.2"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "acbb3ede7a8f9a8ab89e714637f2cf40001b58f21340d4242b2f11533e65fa8d"
 
 [[package]]
 name = "quote"
