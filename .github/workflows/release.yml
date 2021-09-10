@@ -42,3 +42,7 @@ jobs:
           docker push $IMAGE:builder &
           docker push $IMAGE:latest &
           wait
+
+      - name: Remove untagged image
+        if: github.ref == 'refs/heads/main'
+        run: docker run $IMAGE:latest -t ${{ secrets.GHCR_PAT }} -c $(echo $IMAGE | cut -d \/ -f 3)
