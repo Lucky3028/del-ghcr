@@ -18,10 +18,9 @@ COPY --chown=rust:rust ./src/ ./src/
 RUN cargo build --release && strip /tmp/app/target/x86_64-unknown-linux-musl/release/del-ghcr
 
 # executor
-FROM gcr.io/distroless/cc:latest
-USER nonroot
+FROM alpine:3.14.2
 WORKDIR /app
-COPY --chown=nonroot:nonroot ./entry-point.sh .
-COPY --from=builder --chown=nonroot:nonroot /tmp/app/target/x86_64-unknown-linux-musl/release/del-ghcr .
+COPY ./entry-point.sh .
+COPY --from=builder /tmp/app/target/x86_64-unknown-linux-musl/release/del-ghcr .
 
 ENTRYPOINT ["./entry-point.sh"]
