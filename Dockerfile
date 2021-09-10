@@ -23,6 +23,5 @@ USER nonroot
 WORKDIR /app
 COPY --chown=nonroot:nonroot ./entry-point.sh .
 COPY --from=builder --chown=nonroot:nonroot /tmp/app/target/x86_64-unknown-linux-musl/release/del-ghcr .
-RUN chmod +x entry-point.sh && chmod +x del-ghcr
 
 ENTRYPOINT ["./entry-point.sh"]
