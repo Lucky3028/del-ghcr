@@ -13,12 +13,6 @@ fn main() {
         .flag(Flag::new("token", FlagType::String).alias("t"))
         .flag(Flag::new("container", FlagType::String).alias("c"))
         .flag(Flag::new("dry-run", FlagType::Bool).alias("d"))
-        .command(
-            Command::new("version")
-                .alias("-v")
-                .description("Show version.")
-                .action(|_| println!("version: {}", env!("CARGO_PKG_VERSION"))),
-        )
         .action(commands::delete_images);
 
     app.run(args);
