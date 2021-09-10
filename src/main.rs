@@ -1,6 +1,6 @@
 use del_ghcr::commands;
 use itertools::Itertools;
-use seahorse::{App, Command, Flag, FlagType};
+use seahorse::{App, Flag, FlagType};
 use std::env;
 
 fn main() {
@@ -13,13 +13,6 @@ fn main() {
         .flag(Flag::new("token", FlagType::String).alias("t"))
         .flag(Flag::new("container", FlagType::String).alias("c"))
         .flag(Flag::new("dry-run", FlagType::Bool).alias("d"))
-        .flag(Flag::new("force", FlagType::Bool).alias("f"))
-        .command(
-            Command::new("version")
-                .alias("-v")
-                .description("Show version.")
-                .action(|_| println!("version: {}", env!("CARGO_PKG_VERSION"))),
-        )
         .action(commands::delete_images);
 
     app.run(args);
