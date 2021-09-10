@@ -33,4 +33,4 @@ do
   esac
 done
 
-del-ghcr -t ${GHCR_TOKEN:?} -c ${CONTAINER_NAME:?} $(if "${IS_DRY_RUN=false}"; then echo "-d"; else echo ""; fi)
+./del-ghcr -t ${GHCR_TOKEN:?} -c ${CONTAINER_NAME:?} $(if "${IS_DRY_RUN=false}"; then echo "-d"; else echo ""; fi)
