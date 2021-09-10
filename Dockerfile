@@ -21,7 +21,8 @@ RUN cargo build --release && strip /tmp/app/target/x86_64-unknown-linux-musl/rel
 FROM gcr.io/distroless/cc:latest
 USER nonroot
 WORKDIR /app
-COPY ./entry-point.sh .
-COPY --from=builder /tmp/app/target/x86_64-unknown-linux-musl/release/del-ghcr .
+COPY --chown=nonroot:nonroot ./entry-point.sh .
+COPY --from=builder --chown=nonroot:nonroot /tmp/app/target/x86_64-unknown-linux-musl/release/del-ghcr .
+RUN chmod +x entry-point.sh && chmod +x del-ghcr
 
 ENTRYPOINT ["./entry-point.sh"]
