@@ -1,96 +1,44 @@
-name: Build and Release
+name: Build and Publish docker
 
 on:
   push:
-    tags:
-      - 'v*'
+    branches: main
+  pull_request:
+    branches: main
 
 jobs:
-  build:
-    strategy:
-      matrix:
-        target:
-          - x86_64-unknown-linux-gnu
-          - x86_64-pc-windows-gnu
-          - x86_64-apple-darwin
-        include:
-          - target: x86_64-unknown-linux-gnu
-            os: ubuntu-latest
-          - target: x86_64-pc-windows-gnu
-            os: ubuntu-latest
-          - target: x86_64-apple-darwin
-            os: macos-latest
-
-    runs-on: ${{ matrix.os }}
-
-    steps:
-      - uses: actions/checkout@v1
-
-      - uses: actions/cache@v2
-        with:
-          path: |
-            ~/.cargo/registry
-            ~/.cargo/git
-            target
-          key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
-
-      - uses: actions-rs/toolchain@v1
-        with:
-          toolchain: stable
-          override: true
-      - uses: actions-rs/cargo@v1.0.1
-        with:
-          command: build
-          args: --release --target=${{ matrix.target }}
-          use-cross: true
-      - run: zip --junk-paths del-ghcr-${{ matrix.target }} target/${{ matrix.target }}/release/del-ghcr{,.exe}
-      - uses: actions/upload-artifact@v1
-        with:
-          name: build-${{ matrix.target }}
-          path: del-ghcr-${{ matrix.target }}.zip
-
-  create_release:
-    needs: [build]
+  build_and_publish_images:
     runs-on: ubuntu-latest
+    env:
+      DOCKER_BUILDKIT: 1
+      IMAGE: ghcr.io/lucky3028/del-ghcr
     steps:
-      - id: create-release
-        uses: actions/create-release@v1.0.0
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: ${{ github.ref }}
-          release_name: Release ${{ github.ref }}
-          draft: false
-          prerelease: false
-      - run: echo '${{ steps.create-release.outputs.upload_url }}' > release_upload_url.txt
-      - uses: actions/upload-artifact@v1
-        with:
-          name: create-release
-          path: release_upload_url.txt
+      - uses: actions/checkout@v2
 
-  upload_release:
-    strategy:
-      matrix:
-        target:
-          - x86_64-unknown-linux-gnu
-          - x86_64-pc-windows-gnu
-          - x86_64-apple-darwin
-    needs: [create_release]
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/download-artifact@v1
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v1
         with:
-          name: create-release
-      - id: upload-url
-        run: echo "::set-output name=url::$(cat create-release/release_upload_url.txt)"
-      - uses: actions/download-artifact@v1
-        with:
-          name: build-${{ matrix.target }}
-      - uses: actions/upload-release-asset@v1.0.1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.upload-url.outputs.url }}
-          asset_path: ./build-${{ matrix.target }}/del-ghcr-${{ matrix.target }}.zip
-          asset_name: del-ghcr-${{ matrix.target }}.zip
-          asset_content_type: application/zip
+          registry: ghcr.io
+          username: lucky3028
+          password: ${{ secrets.GHCR_PAT }}
+
+      - name: Prepare dummy
+        run: |
+          curl -s https://api.github.com/repos/Lucky3028/create-dummy-toml/releases/latest \
+            | grep "browser_download_url" \
+            | cut -d : -f 2,3 \
+            | tr -d \" \
+            | wget -qi -
+          chmod +x create_dummy_toml
+          ./create_dummy_toml
+      - name: Build builder image
+        run: docker build --target builder --cache-from $IMAGE:builder -t $IMAGE:builder --build-arg BUILDKIT_INLINE_CACHE=1 .
+      - name: Build image
+        run: docker build --cache-from $IMAGE:builder --cache-from $IMAGE:latest -t $IMAGE:latest --build-arg BUILDKIT_INLINE_CACHE=1 .
+
+      - name: Push image
+        if: github.ref == 'refs/heads/main'
+        run: |
+          docker push $IMAGE:builder &
+          docker push $IMAGE:latest &
+          wait
