@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 # https://qiita.com/b4b4r07/items/dcd6be0bb9c9185475bb#getopt
 
 OPT=`getopt -o t:c:d -l token:,container:,dry-run -- "$@"`
