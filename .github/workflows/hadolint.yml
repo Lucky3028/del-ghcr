@@ -1,0 +1,20 @@
+name: Lint dockerfile
+
+on:
+  push:
+    branches: main
+  pull_request:
+    branches: main
+
+jobs:
+  hadolint:
+    name: Execute hadolint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: Execute hadolint
+        uses: reviewdog/action-hadolint@v1
+        with:
+          github_token: ${{ secrets.github_token }}
+          reporter: github-pr-review
+          hadolint_ignore: DL3059
