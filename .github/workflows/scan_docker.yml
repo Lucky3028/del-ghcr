@@ -6,8 +6,7 @@ on:
     - cron:  '0 0 * * 1' # 毎週月曜日の9時(JST)
 
 jobs:
-  build:
-    name: Build
+  scan:
     runs-on: ubuntu-latest
     steps:
       - uses: aquasecurity/trivy-action@master
