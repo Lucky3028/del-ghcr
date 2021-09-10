@@ -4,7 +4,7 @@ You can delete all untagged images of GitHub Container Registry (ghcr.io) by usi
 
 ## Usage
 
-`/del-ghcr --token <token> --container <container> --force --dry-run`
+`/del-ghcr --token <token> --container <container> --dry-run`
 
 |Options|Description|Shorthand|Is Required|
 |---|---|---|---|
