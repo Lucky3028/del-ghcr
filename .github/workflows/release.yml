@@ -29,8 +29,8 @@ jobs:
             | cut -d : -f 2,3 \
             | tr -d \" \
             | wget -qi -
-          chmod +x create_dummy_toml
-          ./create_dummy_toml
+          chmod +x create-dummy-toml
+          ./create-dummy-toml
       - name: Build builder image
         run: docker build --target builder --cache-from $IMAGE:builder -t $IMAGE:builder --build-arg BUILDKIT_INLINE_CACHE=1 .
       - name: Build image
